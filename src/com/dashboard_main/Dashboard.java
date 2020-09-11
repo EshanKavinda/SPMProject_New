@@ -297,7 +297,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         jTabbedPane2.remove(0);
-        jTabbedPane2.add("Working Days And Hours", new WorkingDaysAndHours());
+        jTabbedPane2.add("Working Days And Hours", new WorkingDaysAndHours(jTabbedPane2));
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
