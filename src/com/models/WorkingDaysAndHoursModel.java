@@ -20,6 +20,8 @@ public class WorkingDaysAndHoursModel {
     private String slot_description;
     private String log_date;
     
+    
+    
 
 //    public WorkingDaysAndHoursModel(int id, int num_of_working_days, String working_days, int work_time_per_day, String time_slot) {
 //        this.id = id;
@@ -30,14 +32,17 @@ public class WorkingDaysAndHoursModel {
 //    }
     
     
-    public WorkingDaysAndHoursModel(String work_time_per_day, String log_date) {
+   
+
+    public WorkingDaysAndHoursModel(int id, String work_time_per_day, String log_date) {
+        this.id = id;
         this.work_time_per_day = work_time_per_day;
         this.log_date = log_date;
     }
 
     public WorkingDaysAndHoursModel() {
     }
-
+    
     public String getSlot_date() {
         return slot_date;
     }

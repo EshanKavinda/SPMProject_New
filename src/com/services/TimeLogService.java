@@ -5,6 +5,8 @@
  */
 package com.services;
 
+import com.dashboard.components.WorkingDaysAndHours;
+import com.models.Lecturer;
 import com.models.WorkingDaysAndHoursModel;
 import com.util.db.SQLite_Connection;
 import java.sql.Connection;
@@ -44,7 +46,7 @@ public class TimeLogService {
     }
     
      public ResultSet select(){
-        String sql = "SELECT work_time_per_day, log_date FROM working_days_and_hours WHERE log_date IS NOT NULL";
+        String sql = "SELECT id, work_time_per_day, log_date FROM working_days_and_hours WHERE log_date IS NOT NULL";
         
        try {
                 connection = SQLite_Connection.connect();
@@ -52,58 +54,70 @@ public class TimeLogService {
                 resultSet = preparedStatement.executeQuery();
             } catch (Exception ex) {
                 System.out.println(ex.toString());
-            }finally {		
-                      //Services.colsedConnections();
             }
+       
         return resultSet;
     }
     
    
      
-     public void update(int id, int num) {
+     public void update(int id, String time, String date) {
         String sql = "UPDATE working_days_and_hours "
-                + "SET working_days = ? , log_date = ?"
+                + "SET work_time_per_day = ? , log_date = ?"
                 + "WHERE id = ?";
 
         try {
             connection = SQLite_Connection.connect();
             preparedStatement = connection.prepareStatement(sql);
             
-            preparedStatement.setInt(id, num);
+            preparedStatement.setString(1, time);
+            preparedStatement.setString(2, date);
+            preparedStatement.setInt(3, id);
+
+
             preparedStatement.executeUpdate();
-            
+            preparedStatement.close();
+
             System.out.println("DB status: "+ preparedStatement);
             
         } catch (Exception ex) {
             System.out.println(ex.toString());
             //Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {		
-                 // Services.colsedConnections();
-        }  
+        }
+    }
+     
+     public void updateQuery(WorkingDaysAndHoursModel work){
+        int id = work.getId();
+        String date = work.getLog_date();
+        String time = work.getWork_time_per_day();
+      
+        String sql = "UPDATE working_days_and_hours SET work_time_per_day = '"+time+"' , log_date = '"+date+"' WHERE id = '"+id+"'";        
+        try {
+            connection = SQLite_Connection.connect();
+            preparedStatement = connection.prepareStatement(sql);
+            boolean result = preparedStatement.execute();
+            System.out.println("DB status: "+result);
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
     }
         
-     public void delete(String id) {
-        String sql = "DELETE FROM working_days_and_hours WHERE id = ?";
+     public void delete(int id) {
+        String sql = "DELETE FROM working_days_and_hours WHERE id = '"+id+"'";
 
         try {
             
             connection = SQLite_Connection.connect();
             preparedStatement = connection.prepareStatement(sql);
-
-            // set the corresponding param
-            preparedStatement.setString(1, id);
-            // execute the delete statement
             boolean result = preparedStatement.execute();
-            preparedStatement.close();
+            
+//            preparedStatement.close();
             System.out.println("DB status: "+result);
 
             
         } catch (Exception ex) {
             System.out.println(ex.toString());
-            //Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {		
-                 // Services.colsedConnections();
-        }  
+        }
     }
 
     

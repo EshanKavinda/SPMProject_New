@@ -5,8 +5,8 @@
  */
 package com.dashboard.subcomponents;
 
-import com.services.TimeLogService;
 import com.services.TimeSlotService;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import net.proteanit.sql.DbUtils;
 
@@ -21,7 +21,7 @@ public class TimeSlots extends javax.swing.JPanel {
            
 
 
-    public TimeSlots() {
+    public TimeSlots(JTabbedPane jTabbedPane) {
         initComponents();
         this.jTabbedPane = jTabbedPane;
         TimeSlotService service = new TimeSlotService();
@@ -40,7 +40,7 @@ public class TimeSlots extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        test = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -52,6 +52,8 @@ public class TimeSlots extends javax.swing.JPanel {
         timePicker2 = new com.github.lgooddatepicker.components.TimePicker();
         jScrollPane2 = new javax.swing.JScrollPane();
         DisplayTable = new javax.swing.JTable();
+        EditBtn = new javax.swing.JButton();
+        DeleteBtn = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -89,13 +91,13 @@ public class TimeSlots extends javax.swing.JPanel {
 
         DisplayTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Date", "Start Time", "End Time", "Description"
+                "Date", "Start Time", "End Time", "Description", "Id"
             }
         ));
         DisplayTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -105,64 +107,83 @@ public class TimeSlots extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(DisplayTable);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel4)))
-                        .addGap(152, 152, 152)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(timePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(timePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(287, 287, 287)
+        EditBtn.setText("Edit");
+
+        DeleteBtn.setText("Delete");
+        DeleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout testLayout = new javax.swing.GroupLayout(test);
+        test.setLayout(testLayout);
+        testLayout.setHorizontalGroup(
+            testLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(testLayout.createSequentialGroup()
+                .addGroup(testLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(testLayout.createSequentialGroup()
+                        .addGap(281, 281, 281)
                         .addComponent(jButton1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(258, 448, Short.MAX_VALUE))
+                    .addGroup(testLayout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addGroup(testLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(testLayout.createSequentialGroup()
+                                .addGroup(testLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addGroup(testLayout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel4)))
+                                .addGap(152, 152, 152)
+                                .addGroup(testLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(testLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(testLayout.createSequentialGroup()
+                                            .addComponent(timePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jLabel1)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(timePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addGap(18, 18, 18)
+                        .addGroup(testLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(EditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DeleteBtn))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+        testLayout.setVerticalGroup(
+            testLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(testLayout.createSequentialGroup()
+                .addGroup(testLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(testLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(testLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(testLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(timePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3)
                             .addComponent(timePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(testLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(15, 15, 15)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addGroup(testLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(testLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(EditBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(DeleteBtn)))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -171,21 +192,52 @@ public class TimeSlots extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(test, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(test, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void DeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBtnActionPerformed
+        // TODO add your handling code here:
+        int row = DisplayTable.getSelectedRow();
+
+        if (row >= 0) {
+            int id = Integer.parseInt(DisplayTable.getValueAt(row, 0).toString());
+            String date = DisplayTable.getValueAt(row, 1).toString().toUpperCase();
+
+            int i = JOptionPane.showConfirmDialog(this, "Delete Log for "+ date ,"Confirm", JOptionPane.YES_NO_OPTION);
+            if(i==0){
+                TimeSlotService service = new TimeSlotService();
+                service.delete(id);
+                JOptionPane.showMessageDialog(this, "Delete successful");
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Please select row!");
+        }
+
+    }//GEN-LAST:event_DeleteBtnActionPerformed
+
+    private void DisplayTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DisplayTableMouseClicked
+        // TODO add your handling code here:
+        int row = DisplayTable.getSelectedRow();
+        String id = DisplayTable.getValueAt(row, 0).toString();
+        String date = DisplayTable.getValueAt(row, 1).toString();
+        String timeStart = DisplayTable.getValueAt(row, 2).toString();
+        String timeEnd = DisplayTable.getValueAt(row, 3).toString();
+        String description = DisplayTable.getValueAt(row, 4).toString();
+
+    }//GEN-LAST:event_DisplayTableMouseClicked
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+
         timeslot.addTimeSlot(timePicker1.getTimeStringOrEmptyString() ,timePicker2.getTimeStringOrEmptyString(), datePicker1.getDateStringOrEmptyString(), jTextField3.getText());
         System.out.println("time :" + timePicker1.getTimeStringOrEmptyString());
         System.out.println("time :" + timePicker2.getTimeStringOrEmptyString());
@@ -196,31 +248,23 @@ public class TimeSlots extends javax.swing.JPanel {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
-
-    private void DisplayTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DisplayTableMouseClicked
-        // TODO add your handling code here:
-         int row = DisplayTable.getSelectedRow();
-        String date = DisplayTable.getValueAt(row, 0).toString();
-        String timeStart = DisplayTable.getValueAt(row, 1).toString();
-        String timeEnd = DisplayTable.getValueAt(row, 2).toString();
-        String description = DisplayTable.getValueAt(row, 3).toString();
-        
-    }//GEN-LAST:event_DisplayTableMouseClicked
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton DeleteBtn;
     private javax.swing.JTable DisplayTable;
+    private javax.swing.JButton EditBtn;
     private com.github.lgooddatepicker.components.DatePicker datePicker1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JPanel test;
     private com.github.lgooddatepicker.components.TimePicker timePicker1;
     private com.github.lgooddatepicker.components.TimePicker timePicker2;
     // End of variables declaration//GEN-END:variables

@@ -5,17 +5,8 @@
  */
 package com.dashboard.subcomponents;
 
-import com.util.db.SQLite_Connection;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author ESHAN
- */
 public class Days extends javax.swing.JPanel {
 
     /**
@@ -35,7 +26,6 @@ public class Days extends javax.swing.JPanel {
     private void initComponents() {
 
         SaveBtn = new javax.swing.JButton();
-        ResetBtn = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
         jCheckBox3 = new javax.swing.JCheckBox();
@@ -48,13 +38,6 @@ public class Days extends javax.swing.JPanel {
         SaveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveBtnActionPerformed(evt);
-            }
-        });
-
-        ResetBtn.setText("Reset");
-        ResetBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ResetBtnActionPerformed(evt);
             }
         });
 
@@ -109,11 +92,6 @@ public class Days extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(SaveBtn)
-                        .addGap(31, 31, 31)
-                        .addComponent(ResetBtn))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(75, 75, 75)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCheckBox2)
@@ -122,8 +100,11 @@ public class Days extends javax.swing.JPanel {
                             .addComponent(jCheckBox4)
                             .addComponent(jCheckBox5)
                             .addComponent(jCheckBox6)
-                            .addComponent(jCheckBox7))))
-                .addContainerGap(252, Short.MAX_VALUE))
+                            .addComponent(jCheckBox7)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(214, 214, 214)
+                        .addComponent(SaveBtn)))
+                .addContainerGap(310, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,11 +123,9 @@ public class Days extends javax.swing.JPanel {
                 .addComponent(jCheckBox6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jCheckBox7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ResetBtn)
-                    .addComponent(SaveBtn))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(SaveBtn)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -175,25 +154,12 @@ public class Days extends javax.swing.JPanel {
     }//GEN-LAST:event_jCheckBox7ActionPerformed
 
     private void SaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveBtnActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:'
+
     }//GEN-LAST:event_SaveBtnActionPerformed
-
-    private void ResetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetBtnActionPerformed
-        // TODO add your handling code here:
-//        jCheckBox1.setChecked(false);
-//        jCheckBox2.setChecked(false);
-//        jCheckBox3.setChecked(false);
-//        jCheckBox4.setChecked(false);
-//        jCheckBox5.setChecked(false);
-//        jCheckBox6.setChecked(false);
-
-
-
-    }//GEN-LAST:event_ResetBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ResetBtn;
     private javax.swing.JButton SaveBtn;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;

@@ -45,7 +45,7 @@ public class NumOfDaysService {
      
      
      public ResultSet retrieveData(){
-        String sql = "SELECT num_of_working_days FROM working_days_and_hours";
+        String sql = "SELECT num_of_working_days FROM working_days_and_hours WHERE num_of_working_days IS NOT NULL AND id = 1  ";
         try {
                 connection = SQLite_Connection.connect();
                 preparedStatement = connection.prepareStatement(sql);
@@ -79,9 +79,7 @@ public class NumOfDaysService {
         } catch (Exception ex) {
             System.out.println(ex.toString());
             //Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {		
-                 // Services.colsedConnections();
-        }  
+        }
     }
         
      public void delete(int id) {

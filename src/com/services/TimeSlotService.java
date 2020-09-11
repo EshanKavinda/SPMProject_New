@@ -43,7 +43,7 @@ public class TimeSlotService {
     }
     
      public ResultSet select(){
-        String sql = "SELECT slot_date, time_slot_start, time_slot_end, slot_description time_slot FROM working_days_and_hours WHERE slot_date IS NOT NULL";
+        String sql = "SELECT id, slot_date, time_slot_start, time_slot_end, slot_description time_slot FROM working_days_and_hours WHERE slot_date IS NOT NULL";
         
         try {
                 connection = SQLite_Connection.connect();
@@ -84,24 +84,20 @@ public class TimeSlotService {
     }
         
      public void delete(int id) {
-        String sql = "DELETE FROM working_days_and_hours WHERE id = ?";
+        String sql = "DELETE FROM working_days_and_hours WHERE id = '"+id+"'";
 
         try {
             
             connection = SQLite_Connection.connect();
             preparedStatement = connection.prepareStatement(sql);
+            boolean result =  preparedStatement.execute();
+            preparedStatement.close();
+            System.out.println("DB status: "+result);
 
-            // set the corresponding param
-            preparedStatement.setInt(1, id);
-            // execute the delete statement
-            preparedStatement.executeUpdate();
-            
         } catch (Exception ex) {
             System.out.println(ex.toString());
             //Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {		
-                 // Services.colsedConnections();
-        }  
+        }
     }
 
     

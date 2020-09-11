@@ -5,9 +5,7 @@
  */
 package com.dashboard.subcomponents;
 
-import com.models.Lecturer;
 import com.models.WorkingDaysAndHoursModel;
-import com.services.LecturerService;
 import com.services.TimeLogService;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
@@ -53,15 +51,23 @@ public class TimeLog extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Date", "Time"
+                "ID", "Date", "Time"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -174,8 +180,9 @@ public class TimeLog extends javax.swing.JPanel {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         int row = jTable1.getSelectedRow();
-        String date = jTable1.getValueAt(row, 0).toString();
-        String time = jTable1.getValueAt(row, 1).toString();
+        String id = jTable1.getValueAt(row, 0).toString();
+        String date = jTable1.getValueAt(row, 1).toString();
+        String time = jTable1.getValueAt(row, 2).toString();
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void DeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBtnActionPerformed
@@ -183,13 +190,14 @@ public class TimeLog extends javax.swing.JPanel {
          int row = jTable1.getSelectedRow();
         
         if (row >= 0) {
-            String date = jTable1.getValueAt(row, 0).toString().toUpperCase();
-            String time = jTable1.getValueAt(row, 1).toString().toUpperCase();
+            int id = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
+            String date = jTable1.getValueAt(row, 1).toString().toUpperCase();
+            String time = jTable1.getValueAt(row, 2).toString().toUpperCase();
 
-            int i = JOptionPane.showConfirmDialog(this, "Delete "+ date ,"Confirm", JOptionPane.YES_NO_OPTION);
+            int i = JOptionPane.showConfirmDialog(this, "Delete Log for "+ date + " at time: " + time,"Confirm", JOptionPane.YES_NO_OPTION);
             if(i==0){
                 TimeLogService service = new TimeLogService();
-                service.delete(date);
+                service.delete(id);
                 JOptionPane.showMessageDialog(this, "Delete successful");
             }
 //        //refresh table
@@ -198,8 +206,6 @@ public class TimeLog extends javax.swing.JPanel {
         }else{
             JOptionPane.showMessageDialog(this, "Please select row!");
         }
-        
-
     }//GEN-LAST:event_DeleteBtnActionPerformed
 
     private void EditBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditBtnActionPerformed
@@ -207,13 +213,12 @@ public class TimeLog extends javax.swing.JPanel {
         int row = jTable1.getSelectedRow();
 
         if (row >= 0) {
+             int id = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
             String date = jTable1.getValueAt(row, 1).toString();
             String time = jTable1.getValueAt(row, 2).toString();
-
-            WorkingDaysAndHoursModel l = new WorkingDaysAndHoursModel(time, date);
-
-            jTabbedPane.remove(0);
-            //            jTabbedPane.add("Edit Lecturer Details", new AddLectures(l, jTabbedPane));
+            
+            WorkingDaysAndHoursModel model = new WorkingDaysAndHoursModel(id,time,date);
+          
         }else{
             JOptionPane.showMessageDialog(this, "Please select row!");
         }
