@@ -13,6 +13,8 @@ import com.dashboard_main.Dashboard;
  */
 public class SPM_Project {
 
+    
+    // Main class
     /**
      * @param args the command line arguments
      */
